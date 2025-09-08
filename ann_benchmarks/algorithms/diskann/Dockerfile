@@ -4,9 +4,9 @@ RUN apt-get update
 RUN apt-get install -y wget git cmake g++ libaio-dev libgoogle-perftools-dev clang-format libboost-dev python3 python3-setuptools python3-pip
 RUN pip3 install pybind11 numpy
 
-RUN cd /tmp && wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
-RUN cd /tmp && apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
-RUN cd /tmp && rm GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
+RUN cd /tmp && wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+RUN cd /tmp && apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+RUN cd /tmp && rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
 RUN cd /tmp && sh -c 'echo deb https://apt.repos.intel.com/mkl all main > /etc/apt/sources.list.d/intel-mkl.list'
 RUN apt-get update
 RUN apt-get install -y intel-mkl-64bit-2020.0-088
