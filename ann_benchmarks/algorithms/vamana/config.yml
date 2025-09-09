@@ -1,0 +1,25 @@
+float:
+  any:
+    - base_args: ['@metric']
+      constructor: DiskANN
+      disabled: false
+      docker_tag: ann-benchmarks-vamana
+      module: ann_benchmarks.algorithms.vamana
+      name: vamana
+      run_groups:
+        R-60:
+          arg_groups: [{max_degree: 60, complexity: 100, alpha: 1.2}]
+          args: {}
+          query_args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
+#        R-80:
+#          arg_groups: [{max_degree: 80, complexity: 150, alpha: 1.2}]
+#          args: {}
+#          query_args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
+#        R-100:
+#          arg_groups: [{max_degree: 100, complexity: 175, alpha: 1.2}]
+#          args: {}
+#          query_args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
+#        R-150:
+#          arg_groups: [{max_degree: 150, complexity: 200, alpha: 1.2}]
+#          args: {}
+#          query_args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
