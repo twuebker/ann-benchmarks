@@ -23,11 +23,7 @@ RUN echo "MKL_THREADING_LAYER=GNU" >> /etc/environment
 
 RUN git clone --single-branch --branch python_bindings https://github.com/microsoft/diskann
 RUN mkdir -p diskann/build
-RUN cd diskann/build && \
-    CXXFLAGS="-march=native -Wall -fno-builtin-malloc -fno-builtin-calloc \
-    -fno-builtin-realloc -fno-builtin-free -fopenmp -fopenmp-simd \
-    -funroll-loops -Wfatal-errors -DUSE_ACCELERATED_PQ -DUSE_AVX2 -fPIC" \
-    cmake -DCMAKE_BUILD_TYPE=Release ..
+RUN cd diskann/build && cmake -DCMAKE_CXX_FLAGS="-DUSE_AVX2 -UUSE_AVX512" -DCMAKE_BUILD_TYPE=Release ..
 RUN cd diskann/build && make -j
 RUN cd diskann/python && pip install -e .
 RUN python3 -c 'import vamanapy'
