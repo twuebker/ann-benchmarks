@@ -341,6 +341,8 @@ def run_docker(
         cpuset_cpus=cpu_limit,
         mem_limit=mem_limit,
         detach=True,
+        #IMPORTANT: Starts with own user. This means I can access the files produced by docker later with my user.
+        user=f"{os.getuid()}:{os.getgid()}"
     )
     logger = logging.getLogger(f"annb.{container.short_id}")
 
