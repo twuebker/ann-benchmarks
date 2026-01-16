@@ -14,7 +14,7 @@ float:
   any:
   - base_args: ['@metric']
     constructor: FaissLSH
-    disabled: true
+    disabled: false
     docker_tag: ann-benchmarks-faiss
     module: ann_benchmarks.algorithms.faiss
     name: faiss-lsh
