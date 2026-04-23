@@ -43,7 +43,7 @@ def create_plot(all_data, raw, x_scale, y_scale, xn, yn, fn_out, linestyles, bat
     # Now generate each plot
     handles = []
     labels = []
-    plt.figure(figsize=(6, 4))  # Reduced from (12, 9) for better thesis integration
+    plt.figure(figsize=(5, 3.5))  # Reduced from (12, 9) for better thesis integration
 
     # Sorting by mean y-value helps aligning plots with labels
     def mean_y(algo):
@@ -99,11 +99,16 @@ def create_plot(all_data, raw, x_scale, y_scale, xn, yn, fn_out, linestyles, bat
     else:
         ax.set_xscale(x_scale)
     ax.set_yscale(y_scale)
-    ax.set_title(get_plot_label(xm, ym))
+    #ax.set_title(get_plot_label(xm, ym))
 
     # Legend inside plot area for better thesis integration
-    ax.legend(handles, labels, loc="best", frameon=True, fancybox=False,
-              shadow=False, framealpha=0.9, prop={"size": 7})
+    ax.legend(handles, labels,
+          bbox_to_anchor=(1.05, 0.5),  # (x, y) in axes coordinates
+          loc='center left',
+          frameon=True, fancybox=False,
+          shadow=False, framealpha=0.9, prop={"size": 7})
+    plt.grid(visible=True, which="major", color="0.65", linestyle="-")
+
 
     plt.setp(ax.get_xminorticklabels(), visible=True)
 
@@ -196,7 +201,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--format", help="Output format (pgf for LaTeX, png for raster)",
-        choices=["pgf", "png"], default="png"
+        choices=["pgf", "png"], default="pgf"
     )
     parser.add_argument(
         "--force-zero", help="Force all axes to start at zero (overrides smart defaults)",

@@ -13,7 +13,7 @@ from ann_benchmarks.plotting.utils import (compute_metrics, create_linestyles,
 from ann_benchmarks.results import get_unique_algorithms, load_all_results
 
 
-def create_plot(all_data, raw, x_scale, y_scale, xn, yn, fn_out, linestyles, batch):
+def create_plot(all_data, raw, x_scale, y_scale, xn, yn, fn_out, linestyles, batch, pdf):
     xm, ym = (metrics[xn], metrics[yn])
     # Now generate each plot
     handles = []
@@ -69,7 +69,7 @@ def create_plot(all_data, raw, x_scale, y_scale, xn, yn, fn_out, linestyles, bat
     else:
         ax.set_xscale(x_scale)
     ax.set_yscale(y_scale)
-    ax.set_title(get_plot_label(xm, ym))
+    #ax.set_title(get_plot_label(xm, ym))
     plt.gca().get_position()
     # plt.gca().set_position([box.x0, box.y0, box.width * 0.8, box.height])
     ax.legend(handles, labels, loc="center left", bbox_to_anchor=(1, 0.5), prop={"size": 9})
@@ -88,7 +88,10 @@ def create_plot(all_data, raw, x_scale, y_scale, xn, yn, fn_out, linestyles, bat
     # Workaround for bug https://github.com/matplotlib/matplotlib/issues/6789
     ax.spines["bottom"]._adjust_location()
 
-    plt.savefig(fn_out, bbox_inches="tight", dpi=144)
+    if not pdf:
+        plt.savefig(fn_out, bbox_inches="tight", dpi=144)
+    else:
+        plt.savefig(fn_out.replace('.png', '.pdf'), bbox_inches="tight", dpi=144)
     plt.close()
 
 
@@ -122,6 +125,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("--batch", help="Plot runs in batch mode", action="store_true")
     parser.add_argument("--recompute", help="Clears the cache and recomputes the metrics", action="store_true")
+    parser.add_argument("--pdf", help="Output pdf instead of png", action="store_true")
     args = parser.parse_args()
 
     if not args.output:
@@ -138,5 +142,5 @@ if __name__ == "__main__":
         raise Exception("Nothing to plot")
 
     create_plot(
-        runs, args.raw, args.x_scale, args.y_scale, args.x_axis, args.y_axis, args.output, linestyles, args.batch
+        runs, args.raw, args.x_scale, args.y_scale, args.x_axis, args.y_axis, args.output, linestyles, args.batch, args.pdf
     )
